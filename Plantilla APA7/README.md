@@ -1,5 +1,9 @@
 # Plantilla JAES — Estilo APA 7 (oficial, vía biblatex-apa)
 
+> **Autor de la adaptación:** Jharol Vilca (Andre)  
+> **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
+> **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería. La adaptación APA 7 es **original** (no existía en Overleaf).
+
 ## Archivos de esta carpeta
 
 | Archivo | Qué es | ¿Lo edito? |

@@ -1,5 +1,9 @@
 # Plantilla JAES — Estilo IEEE (numérico)
 
+> **Autor de la adaptación:** Jharol Vilca (Andre)  
+> **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
+> **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería.
+
 ## Archivos de esta carpeta
 
 | Archivo | Qué es | ¿Lo edito? |

@@ -1,6 +1,6 @@
 # Plantilla JAES — Estilo IEEE (numérico)
 
-> **Autor de la adaptación:** Jharol Vilca (Andre)  
+> **Autor:** Jharol Vilca (Andre)  
 > **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
 > **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería.
 
@@ -17,7 +17,7 @@ No hace falta ningún archivo `.sty` adicional: los paquetes que usa esta planti
 
 ## Esta plantilla fue verificada por compilación completa
 
-A diferencia de la versión APA7 (que usa `biblatex-apa`, no disponible para probar en el entorno donde se generó esta plantilla), esta versión IEEE **sí se compiló de extremo a extremo** antes de entregarse: 0 errores, 0 warnings, formato de dos columnas correcto, tabla simple, tabla ancha, ORCID, citas y bibliografía numérica funcionando, sección de equipo de trabajo correcta.
+A diferencia de la versión APA7 (que usa `biblatex-apa`), esta versión IEEE **sí se compiló de extremo a extremo** antes de publicarse: 0 errores, 0 warnings, formato de dos columnas correcto, tabla simple, tabla ancha, ORCID, citas y bibliografía numérica funcionando, sección de equipo de trabajo correcta.
 
 ## Cómo compilar en VS Code + LaTeX Workshop + MiKTeX
 

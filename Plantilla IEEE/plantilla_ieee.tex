@@ -1,0 +1,235 @@
+% Adaptado por Andre
+% ============================================================
+% PLANTILLA JAES -- ESTILO DE CITACIÓN: IEEE NUMÉRICO
+% ============================================================
+% Citas como [1], [2], [3] en orden de aparición en el texto.
+% Bibliografía ordenada por orden de cita (NO alfabético).
+% Usa: jaes.bst (el estilo "nativo" de esta plantilla, NO es de
+%      TeX Live/MiKTeX -- viene incluido en esta misma carpeta).
+%
+% Úsala si: el profesor/revista no exige un estilo en particular,
+% o pide explícitamente formato IEEE / numérico.
+%
+% ---- Entorno de referencia de esta plantilla ----
+%   SO:           Windows 11
+%   Editor:       VS Code + extensión LaTeX Workshop
+%   Motor:        latexmk (vía Strawberry Perl)
+%   Distribución: MiKTeX, con auto-instalación de paquetes activa
+%
+% Archivos que deben estar en esta misma carpeta:
+%   - plantilla_ieee.tex  (este archivo)
+%   - jaes.cls            (clase del documento, define el formato JAES)
+%   - jaes.bst            (estilo bibliográfico numérico)
+%   - jaes.bib            (tu base de datos de referencias)
+%
+% Compilación con LaTeX Workshop + latexmk:
+%   No necesitas correr pdflatex/bibtex a mano. Con latexmk configurado
+%   (perfil por defecto de LaTeX Workshop ya lo trae), basta con guardar
+%   el archivo o pulsar el botón "Build LaTeX project" (ícono ▶ verde).
+%   latexmk detecta solo que hay un \bibliography{} + \bibliographystyle{}
+%   y corre bibtex en el orden correcto las veces que haga falta.
+%   La primera vez que MiKTeX vea un paquete que falte (poco probable
+%   en esta plantilla, ya que todo es estándar), te preguntará si
+%   quieres instalarlo: acepta, y MiKTeX lo descarga e instala solo.
+% ============================================================
+
+\documentclass[fleqn, final]{jaes}
+
+% ---- Metadatos del pie de página ----
+\jyear{2026}                          % Año que aparece en el pie de página
+\jmonth{Junio}                        % Mes que aparece en el pie de página
+\jname{Nombre del Curso -- Código}     % Texto del pie (por defecto: "Proyecto de Investigación")
+
+% ---- Paquetes adicionales ----
+% Todos estos son paquetes ESTÁNDAR (MiKTeX los autoinstala la primera
+% vez que se usan, sin que tengas que hacer nada manual).
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}\setlength{\mathindent}{10pt}
+\usepackage{bm}
+
+% cleveref: permite \cref{} / \Cref{} para referencias automáticas
+% ("Sec. 3", "Tabla 2", etc.) sin escribir el número a mano.
+\usepackage[capitalise]{cleveref}
+  \crefformat{section}{\textsc{Sec.~#2#1#3}}
+  \Crefformat{section}{\textsc{Sec.~#2#1#3}}
+  \crefformat{figure}{{Fig.~#2#1#3}}
+  \Crefformat{figure}{{Fig.~#2#1#3}}
+  \crefformat{table}{{Tabla~#2#1#3}}
+  \Crefformat{table}{{Tabla~#2#1#3}}
+  \crefname{section}{Sec.}{Secs.}
+  \Crefname{section}{Sec.}{Secs.}
+  \crefname{table}{Tabla}{Tablas}
+  \Crefname{table}{Tabla}{Tablas}
+  \crefname{figure}{Fig.}{Figs.}
+  \Crefname{figure}{Fig.}{Figs.}
+% Fix: cleveref dice "and" en vez de "y" al combinar 2+ referencias
+% (\cref{sec:a,sec:b}) si el documento no usa el paquete babel.
+% Sin este bloque, saldría "(Sec. 2 and 5)" en inglés.
+\providecommand{\creflastconjunction}{}
+\renewcommand{\creflastconjunction}{ y }
+\providecommand{\crefpairconjunction}{}
+\renewcommand{\crefpairconjunction}{ y }
+\providecommand{\crefmiddleconjunction}{}
+\renewcommand{\crefmiddleconjunction}{, }
+
+% Paquetes para tablas anchas / con texto que necesita ajustarse de línea
+% (muy recomendable si vas a tener tablas con párrafos largos en celdas).
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{ragged2e}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}  % columna de ancho fijo con ajuste de línea
+
+% Localización al español (jaes.cls viene en inglés por defecto):
+\renewcommand{\tablename}{Tabla}      % por defecto decía "Table"
+% \bibname (NO \refname) es el comando que jaes.cls usa internamente
+% para titular la sección de bibliografía (\section{\bibname} dentro
+% del entorno thebibliography). Por defecto vale "REFERENCES".
+\renewcommand{\bibname}{Referencias}
+
+% Anula la biografía automática de autores (\biography), que tiene un
+% bug conocido en esta clase: no imprime el texto biográfico, solo
+% fotos y nombres. Ver la sección "Sobre el Equipo de Trabajo" más abajo
+% para la alternativa manual que SÍ funciona.
+\def\printbiography{}
+
+% ---- Si tu entrega NO debe decir "BORRADOR" en cada página ----
+% jaes.cls imprime la palabra BORRADOR en el encabezado de todas las
+% páginas de forma fija (no es una opción togglable desde el .tex).
+% Para quitarlo hay que editar tu copia de jaes.cls, buscando estas
+% dos líneas y dejando vacío el contenido de \rhfont:
+%
+%   \def\@evenhead{\hbox to \textwidth{\hfill\rhfont BORRADOR}}%
+%   \def\@oddhead{\hbox to \textwidth{\rhfont BORRADOR\hfill}}%
+%
+% (Si tu archivo aún es un borrador en revisión, puedes dejarlo así).
+
+\begin{document}
+
+% Encabezado de cada página: {Lista de autores}{Título corto del trabajo}
+\markboth{APELLIDO1, APELLIDO2, APELLIDO3}{Título Corto del Trabajo}
+
+% ---------------- Título ----------------
+\title{Título Completo del Trabajo}
+
+% ---------------- Autores ----------------
+% Un \author{...} por persona, separados por comas, todos dentro de
+% un único \authorgroup{...}. El \textsuperscript{1} enlaza cada autor
+% con su afiliación correspondiente en \affil{}.
+% IMPORTANTE: \email{} y \affil{} deben ir DENTRO del bloque
+% \authorgroup{...} (antes de la llave de cierre), no después. Si se
+% colocan fuera, su formato (cursiva, tamaño de fuente) se filtra al
+% resto del documento porque \authorgroup solo GUARDA su contenido
+% para imprimirlo más tarde con \maketitle; lo que esté fuera de su
+% llave de cierre se ejecuta de inmediato, en un punto del documento
+% donde el diseño de página todavía no está listo para recibirlo.
+\authorgroup{
+\author{NOMBRE APELLIDO\textsuperscript{1}\orcidlink{0000-0000-0000-0000}},
+\author{NOMBRE APELLIDO 2\textsuperscript{1}},
+\author{NOMBRE APELLIDO 3\textsuperscript{1}}
+% \email{...} es opcional: úsalo para correos, códigos de alumno, etc.
+\email{(código1) \quad (código2) \quad (código3)}
+\affil{\textsuperscript{1}Universidad, Facultad, Carrera, Ciudad, País}
+}
+
+% ---------------- Resumen ----------------
+% El abstract va en un solo párrafo, sin saltos de línea en blanco.
+% Longitud orientativa: 150-250 palabras. Debe poder leerse de forma
+% independiente del resto del documento (qué se hizo, cómo, y qué se
+% encontró), sin citar tablas/figuras por número.
+\abstract{%
+Texto del resumen aquí. Describe el problema u objetivo, la metodología
+utilizada, los principales hallazgos y la conclusión o recomendación
+central del trabajo, en un solo párrafo corrido.}
+\maketitle
+
+% ---------------- Palabras clave ----------------
+\begin{keywords}
+palabra clave 1, palabra clave 2, palabra clave 3, palabra clave 4
+\end{keywords}
+
+% ============================================================
+% CUERPO DEL DOCUMENTO
+% Reemplaza estos títulos de sección por los que pida tu rúbrica/curso.
+% \label{sec:...} permite referenciar la sección con \cref{sec:...}
+% desde cualquier otra parte del documento.
+% ============================================================
+
+\section{Introducción / Diagnóstico}\label{sec:introduccion}
+
+Texto de la sección. Usa \verb|\subsection{...}| para subdividir si
+la sección es larga.
+
+\subsection{Subsección de ejemplo}
+
+Para citar una fuente del archivo .bib, usa \verb|\cite{clave}|, que en
+este estilo (IEEE) se muestra como un número entre corchetes, ej.
+\cite{ejemplo_clave}.
+
+% ---- Ejemplo de tabla simple (una columna) ----
+\begin{table}[tb]
+\tabcolsep8.1pt
+\centering
+\caption{Título descriptivo de la tabla.}
+\label{table:ejemplo}
+{%
+\begin{tabular}{@{}lcc@{}}\toprule
+Columna 1 & Columna 2 & Columna 3\\\colrule
+Fila 1 & dato & dato\\
+Fila 2 & dato & dato\\\botrule
+\end{tabular}}
+\end{table}
+
+Se referencia así: ver \cref{table:ejemplo}.
+
+% ---- Ejemplo de tabla ancha (a dos columnas, usa tabularx) ----
+% Usar table* (no table) para que ocupe el ancho completo de la página.
+% La columna tipo Y permite que el texto largo haga salto de línea
+% automático en vez de desbordarse fuera de la página.
+\begin{table*}[tb]
+\centering
+\caption{Título descriptivo de la tabla ancha.}
+\label{table:ejemplo_ancho}
+{\small
+\begin{tabularx}{\textwidth}{@{}lYc@{}}\toprule
+Columna corta & Columna de texto largo (ajusta línea) & Columna corta\\\colrule
+Dato & Texto largo que se ajustará automáticamente dentro del ancho de columna asignado, sin desbordarse. & Dato\\\botrule
+\end{tabularx}}
+\end{table*}
+
+\section{Metodología}\label{sec:metodologia}
+
+Texto de la sección.
+
+\section{Resultados / Análisis}\label{sec:resultados}
+
+Texto de la sección.
+
+\section{Conclusiones}\label{sec:conclusiones}
+
+Texto de la sección.
+
+% ============================================================
+% Bibliografía -- ESTILO IEEE NUMÉRICO
+% ============================================================
+\bibliography{jaes}            % nombre del .bib SIN extensión
+\bibliographystyle{jaes}       % estilo numérico nativo de esta plantilla
+
+% ============================================================
+% Equipo de trabajo (alternativa manual a \biography, que no
+% imprime el texto biográfico correctamente en esta clase)
+% ============================================================
+\clearpage
+\markboth{Equipo de Trabajo}{Equipo de Trabajo}
+\section*{Sobre el Equipo de Trabajo}
+
+\begin{description}
+\item[Nombre Apellido (código)] Rol o aporte específico al trabajo.
+\item[Nombre Apellido 2 (código)] Rol o aporte específico al trabajo.
+\item[Nombre Apellido 3 (código)] Rol o aporte específico al trabajo.
+\end{description}
+
+\noindent Texto de cierre opcional: institución, curso, docente, etc.
+
+\end{document}

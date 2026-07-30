@@ -1,0 +1,53 @@
+% ============================================================
+% BASE DE DATOS BIBLIOGRAFICA -- plantilla_apa7.tex (biblatex-apa)
+% ============================================================
+% Esta plantilla usa BIBLATEX (no BibTeX clasico), por lo que el
+% formato de las entradas es ligeramente distinto al .bib que usarias
+% con jaes.bst o apalike.bst:
+%
+%   - Usa el campo "date" (formato AAAA o AAAA-MM-DD) en vez de
+%     separar "year" y "month". biblatex tambien acepta "year" suelto
+%     si prefieres mantenerlo simple, pero "date" es mas flexible.
+%   - Para paginas web usa el tipo @online (no @misc), con los campos
+%     "url" y "urldate" (fecha en que visitaste el enlace).
+%   - No es necesario escribir el titulo en mayusculas especiales:
+%     biblatex-apa aplica automaticamente el "sentence case" (solo
+%     mayuscula inicial) que exige APA 7 en la lista de referencias.
+%
+% IMPORTANTE: igual que con BibTeX clasico, no escribas el simbolo
+% arroba dentro de un comentario (ni siquiera con %), porque el
+% parser de biber tambien lo interpreta como inicio de una entrada
+% nueva y puede romper la compilacion.
+% ============================================================
+
+% ---- EJEMPLO: articulo de revista ----
+@article{ejemplo_clave,
+  author  = {Apellido, Nombre and Apellido2, Nombre2},
+  title   = {Titulo del articulo, se escribira en sentence case automaticamente},
+  journal = {Nombre de la Revista},
+  volume  = {1},
+  number  = {1},
+  pages   = {1--10},
+  date    = {2025},
+}
+
+% ---- EJEMPLO: libro ----
+@book{ejemplo_libro,
+  author    = {Apellido, Nombre},
+  title     = {Titulo del Libro},
+  publisher = {Editorial},
+  date      = {2024},
+}
+
+% ---- EJEMPLO: recurso web / informe institucional ----
+% Las llaves dobles evitan que biber interprete el nombre
+% institucional como "Nombre Apellido" y lo recorte mal.
+@online{ejemplo_web,
+  author  = {{Nombre de la Institucion}},
+  title   = {Titulo del Informe o Pagina},
+  date    = {2025},
+  url     = {https://ejemplo.com/pagina},
+  urldate = {2026-06-29},
+}
+
+% ---- Agrega aqui tus referencias reales ----

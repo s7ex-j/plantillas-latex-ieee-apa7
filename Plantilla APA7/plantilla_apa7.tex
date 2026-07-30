@@ -1,0 +1,343 @@
+% Adaptado por Andre
+% ============================================================
+% PLANTILLA JAES -- ESTILO DE CITACIÓN: APA 7 (biblatex-apa, oficial)
+% ============================================================
+% Citas como (Autor, Año) / Autor (Año), bibliografía alfabetizada,
+% generadas con la implementación OFICIAL de APA 7 para LaTeX:
+% el paquete biblatex-apa (https://github.com/plk/biblatex-apa).
+%
+% A diferencia de la aproximación con natbib+apalike.bst, esta
+% plantilla usa el motor BIBLATEX (no BibTeX clásico), que requiere
+% el backend BIBER en vez de bibtex. Esto es un cambio de flujo de
+% compilación, no solo de paquete -- ver notas de compilación abajo.
+%
+% ---- Entorno de referencia de esta plantilla ----
+%   SO:           Windows 11
+%   Editor:       VS Code + extensión LaTeX Workshop
+%   Motor:        latexmk (vía Strawberry Perl)
+%   Distribución: MiKTeX, con auto-instalación de paquetes activa
+%
+% ---- Estado de esta plantilla ----
+% Verificada por compilación completa (Jun-2026): 0 errores, 0 warnings,
+% biber sin errores ni warnings, citas \textcite/\parencite funcionando
+% con formato APA 7 real (incluye "&" en cita parentética con dos
+% autores, y sentence case automático en los títulos de la bibliografía).
+%
+% Se encontró y corrigió un conflicto real entre jaes.cls y biblatex:
+% jaes.cls define \bibparsep y \biblabelsep con \newdimen (para su
+% entorno thebibliography clásico); biblatex declara esos MISMOS
+% nombres con \newlength sin comprobar si ya existen, lo que rompía la
+% compilación con "Command \bibparsep already defined". La solución
+% (liberar ambos nombres antes de cargar biblatex) ya está aplicada
+% más abajo en este archivo -- no necesitas hacer nada al respecto.
+%
+% Archivos que deben estar en esta misma carpeta:
+%   - plantilla_apa7.tex  (este archivo)
+%   - jaes.cls            (clase del documento, define el formato JAES)
+%   - jaes.bib            (tu base de datos de referencias, formato
+%                          biblatex -- ver comentarios dentro del .bib)
+%   (NO necesitas ningún .bst aquí; biblatex-apa no usa archivos .bst,
+%    todo el formato lo controla el paquete biblatex-apa vía biber)
+%
+% Compilación con LaTeX Workshop + latexmk:
+%   1. Abre esta carpeta en VS Code.
+%   2. La PRIMERA vez que compiles, MiKTeX detectará que faltan los
+%      paquetes biblatex, biblatex-apa, csquotes y biber, y te
+%      preguntará si quieres instalarlos. Acepta -- se instalan solos,
+%      sin que tengas que buscar nada manualmente.
+%   3. LaTeX Workshop necesita saber que este documento usa biber, no
+%      bibtex. Por defecto, la receta estándar de LaTeX Workshop
+%      ("latexmk") ya detecta esto automáticamente leyendo el .log
+%      (busca la línea "Backend: biber" generada por biblatex). Si tu
+%      compilación se queda esperando o no actualiza las citas, revisa
+%      en VS Code: Configuración → busca "latex-workshop.latex.recipes"
+%      y confirma que la receta por defecto sea la que incluye
+%      "latexmk" (no "pdflatex" suelto), o agrega manualmente esta
+%      receta en tu settings.json del proyecto:
+%        "latex-workshop.latex.recipes": [
+%          { "name": "latexmk", "tools": ["latexmk"] }
+%        ],
+%        "latex-workshop.latex.tools": [
+%          { "name": "latexmk", "command": "latexmk",
+%            "args": ["-synctex=1","-interaction=nonstopmode",
+%                     "-file-line-error","-pdf","-outdir=%OUTDIR%","%DOC%"] }
+%        ]
+%      (latexmk internamente decide solo si debe llamar a bibtex o a
+%      biber, según lo que detecte en el .aux -- no necesitas elegir).
+%   4. Si compilas por terminal en vez de con el botón de VS Code:
+%        latexmk -pdf plantilla_apa7.tex
+%      (un solo comando; latexmk corre pdflatex/biber las veces que
+%      haga falta automáticamente, a diferencia del flujo manual de
+%      bibtex de 4 pasos que se usa con jaes.bst/apalike.bst).
+%
+% ---- Solución de problemas ----
+%   - Error "! LaTeX Error: Command \bibparsep already defined" (o lo
+%     mismo con \biblabelsep) → ya está resuelto en esta plantilla (ver
+%     nota arriba). Si lo ves de todas formas, revisa que no hayas
+%     borrado por accidente las dos líneas \let...\undefined que
+%     aparecen justo antes de \usepackage{biblatex} más abajo.
+%   - Error "Package biblatex Error: Missing \bibliography...command"
+%     → falta el \addbibresource{jaes.bib} en el preámbulo (revisa que
+%       no lo hayas borrado por accidente).
+%   - Citas como "??" o el aviso "Please (re)run Biber on the file" tras
+%     compilar una sola vez → ESTO ES NORMAL en la primera compilación
+%     de un documento nuevo: biblatex necesita generar primero un
+%     archivo .bcf (lo hace en la 1.ª pasada de pdflatex), luego biber
+%     lee ese .bcf y genera el .bbl, y recién entonces pdflatex puede
+%     mostrar las citas correctas. En VS Code esto se resuelve solo
+%     pulsando el botón ▶ de compilar una segunda vez (LaTeX Workshop
+%     vuelve a correr pdflatex → biber → pdflatex → pdflatex). Si
+%     después de compilar 2-3 veces el problema persiste, revisa que
+%     LaTeX Workshop esté usando la receta "latexmk" (ver punto 3 de
+%     compilación arriba), no una receta manual de solo "pdflatex".
+%   - "and is already a type wizard-defined function name" o errores
+%     parecidos NO deberían aparecer aquí (esos eran específicos de
+%     jaes.bst con BibTeX clásico); si aparecen, probablemente VS Code
+%     está intentando correr bibtex en vez de biber sobre este
+%     proyecto -- revisa el punto 3 de compilación arriba.
+%   - Si el formato de la bibliografía sale en inglés en vez de
+%     español (ej. "and" en vez de "y" entre dos autores en cita
+%     NARRATIVA con \textcite -- la cita PARENTÉTICA con \parencite ya
+%     usa "&" correctamente sin necesitar nada adicional), agrega
+%     \usepackage[spanish]{babel} en el preámbulo: biblatex-apa SÍ trae
+%     localización al español lista (american-apa.lbx existe junto a
+%     otros idiomas), pero solo se activa si babel está cargado con
+%     ese idioma.
+% ============================================================
+
+\documentclass[fleqn, final]{jaes}
+
+% ---- Metadatos del pie de página ----
+\jyear{2026}                          % Año que aparece en el pie de página
+\jmonth{Junio}                        % Mes que aparece en el pie de página
+\jname{Nombre del Curso -- Código}     % Texto del pie (por defecto: "Proyecto de Investigación")
+
+% ---- Paquetes adicionales ----
+\usepackage[utf8]{inputenc}
+
+% csquotes es requisito de biblatex-apa (>= 4.3). Se autoinstala con
+% MiKTeX la primera vez que compiles.
+\usepackage{csquotes}
+
+% FIX VERIFICADO (Jun-2026): jaes.cls ya define \bibparsep y
+% \biblabelsep con \newdimen (para su propio entorno thebibliography
+% clásico, el que usan las plantillas IEEE/apalike). biblatex también
+% declara esos mismos nombres con \newlength sin comprobar si ya
+% existen, lo que produce "! LaTeX Error: Command \bibparsep already
+% defined" al cargar el paquete. Se liberan los nombres justo antes
+% de \usepackage{biblatex} para evitar el choque; esto no afecta el
+% resto de jaes.cls porque esas dos longitudes solo se usan dentro del
+% entorno thebibliography clásico, que esta plantilla no utiliza
+% (usamos \printbibliography de biblatex en su lugar).
+\let\bibparsep\undefined
+\let\biblabelsep\undefined
+
+% biblatex con estilo APA 7 oficial. backend=biber es obligatorio
+% (biblatex-apa no funciona con el backend bibtex clásico).
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{jaes.bib}   % tu base de datos de referencias (con extensión .bib aquí)
+
+\usepackage{amsmath}\setlength{\mathindent}{10pt}
+\usepackage{bm}
+
+% cleveref: permite \cref{} / \Cref{} para referencias automáticas
+% ("Sec. 3", "Tabla 2", etc.) sin escribir el número a mano.
+\usepackage[capitalise]{cleveref}
+  \crefformat{section}{\textsc{Sec.~#2#1#3}}
+  \Crefformat{section}{\textsc{Sec.~#2#1#3}}
+  \crefformat{figure}{{Fig.~#2#1#3}}
+  \Crefformat{figure}{{Fig.~#2#1#3}}
+  \crefformat{table}{{Tabla~#2#1#3}}
+  \Crefformat{table}{{Tabla~#2#1#3}}
+  \crefname{section}{Sec.}{Secs.}
+  \Crefname{section}{Sec.}{Secs.}
+  \crefname{table}{Tabla}{Tablas}
+  \Crefname{table}{Tabla}{Tablas}
+  \crefname{figure}{Fig.}{Figs.}
+  \Crefname{figure}{Fig.}{Figs.}
+% Fix: cleveref dice "and" en vez de "y" al combinar 2+ referencias
+% (\cref{sec:a,sec:b}) si el documento no usa el paquete babel.
+% Sin este bloque, saldría "(Sec. 2 and 5)" en inglés.
+\providecommand{\creflastconjunction}{}
+\renewcommand{\creflastconjunction}{ y }
+\providecommand{\crefpairconjunction}{}
+\renewcommand{\crefpairconjunction}{ y }
+\providecommand{\crefmiddleconjunction}{}
+\renewcommand{\crefmiddleconjunction}{, }
+
+% Paquetes para tablas anchas / con texto que necesita ajustarse de línea
+% (muy recomendable si vas a tener tablas con párrafos largos en celdas).
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{ragged2e}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}  % columna de ancho fijo con ajuste de línea
+
+% Localización al español (jaes.cls viene en inglés por defecto):
+\renewcommand{\tablename}{Tabla}      % por defecto decía "Table"
+% \bibname (NO \refname) es el comando que jaes.cls usa internamente
+% para titular secciones de bibliografía con el entorno clásico
+% thebibliography. biblatex usa su PROPIO título ("Referencias" o
+% "References" según idioma) vía \printbibliography, que no depende
+% de \bibname -- esta línea se deja solo por consistencia/seguridad,
+% no tiene efecto visible en esta plantilla.
+\renewcommand{\bibname}{Referencias}
+
+% Anula la biografía automática de autores (\biography), que tiene un
+% bug conocido en esta clase: no imprime el texto biográfico, solo
+% fotos y nombres. Ver la sección "Sobre el Equipo de Trabajo" más abajo
+% para la alternativa manual que SÍ funciona.
+\def\printbiography{}
+
+% ---- Si tu entrega NO debe decir "BORRADOR" en cada página ----
+% jaes.cls imprime la palabra BORRADOR en el encabezado de todas las
+% páginas de forma fija (no es una opción togglable desde el .tex).
+% Para quitarlo hay que editar tu copia de jaes.cls, buscando estas
+% dos líneas y dejando vacío el contenido de \rhfont:
+%
+%   \def\@evenhead{\hbox to \textwidth{\hfill\rhfont BORRADOR}}%
+%   \def\@oddhead{\hbox to \textwidth{\rhfont BORRADOR\hfill}}%
+%
+% (Si tu archivo aún es un borrador en revisión, puedes dejarlo así).
+
+\begin{document}
+
+% Encabezado de cada página: {Lista de autores}{Título corto del trabajo}
+\markboth{APELLIDO1, APELLIDO2, APELLIDO3}{Título Corto del Trabajo}
+
+% ---------------- Título ----------------
+\title{Título Completo del Trabajo}
+
+% ---------------- Autores ----------------
+% Un \author{...} por persona, separados por comas, todos dentro de
+% un único \authorgroup{...}. El \textsuperscript{1} enlaza cada autor
+% con su afiliación correspondiente en \affil{}.
+% IMPORTANTE: \email{} y \affil{} deben ir DENTRO del bloque
+% \authorgroup{...} (antes de la llave de cierre), no después. Si se
+% colocan fuera, su formato (cursiva, tamaño de fuente) se filtra al
+% resto del documento porque \authorgroup solo GUARDA su contenido
+% para imprimirlo más tarde con \maketitle; lo que esté fuera de su
+% llave de cierre se ejecuta de inmediato, en un punto del documento
+% donde el diseño de página todavía no está listo para recibirlo.
+\authorgroup{
+\author{NOMBRE APELLIDO\textsuperscript{1}\orcidlink{0000-0000-0000-0000}},
+\author{NOMBRE APELLIDO 2\textsuperscript{1}},
+\author{NOMBRE APELLIDO 3\textsuperscript{1}}
+% \email{...} es opcional: úsalo para correos, códigos de alumno, etc.
+\email{(código1) \quad (código2) \quad (código3)}
+\affil{\textsuperscript{1}Universidad, Facultad, Carrera, Ciudad, País}
+}
+
+% ---------------- Resumen ----------------
+% El abstract va en un solo párrafo, sin saltos de línea en blanco.
+% Longitud orientativa: 150-250 palabras. Debe poder leerse de forma
+% independiente del resto del documento (qué se hizo, cómo, y qué se
+% encontró), sin citar tablas/figuras por número.
+\abstract{%
+Texto del resumen aquí. Describe el problema u objetivo, la metodología
+utilizada, los principales hallazgos y la conclusión o recomendación
+central del trabajo, en un solo párrafo corrido.}
+\maketitle
+
+% ---------------- Palabras clave ----------------
+\begin{keywords}
+palabra clave 1, palabra clave 2, palabra clave 3, palabra clave 4
+\end{keywords}
+
+% ============================================================
+% CUERPO DEL DOCUMENTO
+% Reemplaza estos títulos de sección por los que pida tu rúbrica/curso.
+% \label{sec:...} permite referenciar la sección con \cref{sec:...}
+% desde cualquier otra parte del documento.
+% ============================================================
+
+\section{Introducción / Diagnóstico}\label{sec:introduccion}
+
+Texto de la sección. Usa \verb|\subsection{...}| para subdividir si
+la sección es larga.
+
+\subsection{Subsección de ejemplo}
+
+Para citar una fuente del archivo .bib en estilo APA con biblatex, usa:
+\begin{itemize}
+\item \verb|\textcite{clave}| → cita narrativa: Autor (Año)
+\item \verb|\parencite{clave}| → cita entre paréntesis: (Autor, Año)
+\item \verb|\parencite{clave1,clave2}| → varias fuentes: (Autor1, Año; Autor2, Año)
+\item \verb|\textcite{clave}| seguido de página: \verb|\parencite[p.~5]{clave}| → (Autor, Año, p. 5)
+\end{itemize}
+% Nota: con natbib se usaría \citep/\citet; con biblatex (este caso)
+% los comandos correctos son \parencite y \textcite. Son parecidos
+% pero NO intercambiables entre paquetes.
+Ejemplo: según \textcite{ejemplo_clave}, el hallazgo principal fue...
+\parencite{ejemplo_clave}.
+
+% ---- Ejemplo de tabla simple (una columna) ----
+\begin{table}[tb]
+\tabcolsep8.1pt
+\centering
+\caption{Título descriptivo de la tabla.}
+\label{table:ejemplo}
+{%
+\begin{tabular}{@{}lcc@{}}\toprule
+Columna 1 & Columna 2 & Columna 3\\\colrule
+Fila 1 & dato & dato\\
+Fila 2 & dato & dato\\\botrule
+\end{tabular}}
+\end{table}
+
+Se referencia así: ver \cref{table:ejemplo}.
+
+% ---- Ejemplo de tabla ancha (a dos columnas, usa tabularx) ----
+% Usar table* (no table) para que ocupe el ancho completo de la página.
+% La columna tipo Y permite que el texto largo haga salto de línea
+% automático en vez de desbordarse fuera de la página.
+\begin{table*}[tb]
+\centering
+\caption{Título descriptivo de la tabla ancha.}
+\label{table:ejemplo_ancho}
+{\small
+\begin{tabularx}{\textwidth}{@{}lYc@{}}\toprule
+Columna corta & Columna de texto largo (ajusta línea) & Columna corta\\\colrule
+Dato & Texto largo que se ajustará automáticamente dentro del ancho de columna asignado, sin desbordarse. & Dato\\\botrule
+\end{tabularx}}
+\end{table*}
+
+\section{Metodología}\label{sec:metodologia}
+
+Texto de la sección.
+
+\section{Resultados / Análisis}\label{sec:resultados}
+
+Texto de la sección.
+
+\section{Conclusiones}\label{sec:conclusiones}
+
+Texto de la sección.
+
+% ============================================================
+% Bibliografía -- ESTILO APA 7 OFICIAL (biblatex-apa)
+% ============================================================
+% \printbibliography reemplaza por completo a \bibliography{}+
+% \bibliographystyle{} del flujo BibTeX clásico. No necesita el
+% nombre del archivo .bib aquí porque ya se indicó arriba con
+% \addbibresource{jaes.bib} en el preámbulo.
+\printbibliography[title={Referencias}]
+
+% ============================================================
+% Equipo de trabajo (alternativa manual a \biography, que no
+% imprime el texto biográfico correctamente en esta clase)
+% ============================================================
+\clearpage
+\markboth{Equipo de Trabajo}{Equipo de Trabajo}
+\section*{Sobre el Equipo de Trabajo}
+
+\begin{description}
+\item[Nombre Apellido (código)] Rol o aporte específico al trabajo.
+\item[Nombre Apellido 2 (código)] Rol o aporte específico al trabajo.
+\item[Nombre Apellido 3 (código)] Rol o aporte específico al trabajo.
+\end{description}
+
+\noindent Texto de cierre opcional: institución, curso, docente, etc.
+
+\end{document}

@@ -1,0 +1,48 @@
+% ============================================================
+% BASE DE DATOS BIBLIOGRAFICA -- plantilla_ieee.tex
+% ============================================================
+% Cada referencia es un bloque tipo{clave, campo = {valor}, ...}
+% que empieza con el simbolo arroba seguido del tipo (article,
+% book, misc, inproceedings, phdthesis, mastersthesis, etc).
+%
+% IMPORTANTE: BibTeX NO reconoce % como inicio de comentario real;
+% cualquier simbolo arroba en el archivo (incluso dentro de lo que
+% para nosotros es un comentario) sera leido como el inicio de una
+% entrada nueva y puede romper la compilacion. Por eso este archivo
+% evita escribir el simbolo arroba fuera de las entradas reales.
+%
+% La "clave" (ej. ejemplo_clave) es el identificador que usas en
+% el .tex con \cite{clave}. No puede tener espacios ni acentos.
+% ============================================================
+
+% ---- EJEMPLO: articulo de revista ----
+@article{ejemplo_clave,
+  Author  = {Apellido, Nombre and Apellido2, Nombre2},
+  Title   = {Titulo del articulo en mayusculas solo en palabras clave},
+  Journal = {Nombre de la Revista},
+  Volume  = {1},
+  Number  = {1},
+  Pages   = {1--10},
+  Year    = {2025},
+  Month   = {Jun.}
+}
+
+% ---- EJEMPLO: libro ----
+@book{ejemplo_libro,
+  Author    = {Apellido, Nombre},
+  Title     = {Titulo del Libro},
+  Publisher = {Editorial},
+  Year      = {2024}
+}
+
+% ---- EJEMPLO: recurso web o informe institucional ----
+% Las llaves dobles evitan que BibTeX interprete el nombre
+% institucional como "Nombre Apellido" y lo recorte mal.
+@misc{ejemplo_web,
+  Author       = {{Nombre de la Institucion}},
+  Title        = {Titulo del Informe o Pagina},
+  Year         = {2025},
+  howpublished = {\url{https://ejemplo.com/pagina}}
+}
+
+% ---- Agrega aqui tus referencias reales ----

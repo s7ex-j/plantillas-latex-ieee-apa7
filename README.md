@@ -99,8 +99,14 @@ Esta adaptación la realicé yo (**Jharol Vilca / Andre**) para uso académico e
 
 ## 📄 Licencia
 
-La clase `jaes.cls` original es **(c) 2010 Audio Engineering Society (AES)**.  
-Las adaptaciones, plantillas `.tex`, archivos `.bib`, `.bst`, READMEs y documentación derivada son **mías (Jharol Vilca / Andre)** y las comparto libremente para uso académico.
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+| Componente | Licencia | Copyright |
+|---|---|---|
+| **Adaptaciones mías** (`plantilla_ieee.tex`, `plantilla_apa7.tex`, `jaes.bst`, `jaes.bib`, READMEs, `MEMORIA_LATEX.md`, `.gitignore`) | **[MIT](LICENSE)** | (c) 2026 Jharol Vilca (Andre) |
+| **Clase base `jaes.cls`** (incluida en ambas carpetas) | Licencia original AES | (c) 2010 Audio Engineering Society |
+
+> La licencia MIT cubre mis adaptaciones y plantillas. La clase `jaes.cls` original mantiene su licencia AES — se incluye aquí tal cual para que la plantilla compile out-of-the-box, práctica estándar en CTAN/Overleaf.
 
 ---
 

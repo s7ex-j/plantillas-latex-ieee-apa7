@@ -1,5 +1,7 @@
 # Plantillas LaTeX IEEE y APA 7 — Basadas en JAES
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 > **Autor:** Jharol Vilca (Andre)  
 > **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
 > **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería.

@@ -1,8 +1,8 @@
 # Plantillas LaTeX IEEE y APA 7 — Basadas en JAES
 
-> **Autor de la adaptación:** Jharol Vilca (Andre)  
+> **Autor:** Jharol Vilca (Andre)  
 > **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
-> **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería.
+> **Basadas en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptadas al español y para uso académico en ingeniería.
 
 ---
 
@@ -41,7 +41,7 @@ plantillas-latex-ieee-apa7/
 - **Estilo de citas:** APA 7 oficial — `(Autor, Año)` / `Autor (Año)`, bibliografía alfabética
 - **Motor:** `biblatex` + `biber` (backend obligatorio)
 - **Paquete clave:** `biblatex-apa` (implementación oficial APA 7)
-- **Adaptación original:** No existía en Overleaf; creada desde cero resolviendo el conflicto `jaes.cls` vs `biblatex` (`\bibparsep` / `\biblabelsep`)
+- **Adaptación original:** No existía en Overleaf; la creé desde cero resolviendo el conflicto `jaes.cls` vs `biblatex` (`\bibparsep` / `\biblabelsep`)
 - **Verificada:** Compilación completa 0 errores, 0 warnings, `biber` sin errores, `sentence case` automático, `&` en cita parentética con dos autores
 
 ---
@@ -84,7 +84,7 @@ latexmk -pdf plantilla_apa7.tex
 
 ## 📝 Autoría y adaptación
 
-Esta adaptación fue realizada por **Jharol Vilca (Andre)** para uso académico en ingeniería (UPN / ISIL), partiendo de la clase `jaes.cls` oficial de AES. Cambios principales:
+Esta adaptación la realicé yo (**Jharol Vilca / Andre**) para uso académico en ingeniería (UPN / ISIL), partiendo de la clase `jaes.cls` oficial de AES. Cambios principales:
 
 - ✅ Traducción completa al español (cabeceras, pie de página, "Table"→"Tabla", "References"→"Referencias", "BORRADOR" configurable)
 - ✅ Corrección de `cleveref`: conjunciones "y" en vez de "and"
@@ -98,7 +98,7 @@ Esta adaptación fue realizada por **Jharol Vilca (Andre)** para uso académico 
 ## 📄 Licencia
 
 La clase `jaes.cls` original es **(c) 2010 Audio Engineering Society (AES)**.  
-Las adaptaciones, plantillas `.tex`, archivos `.bib`, `.bst`, READMEs y documentación derivada son de **Jharol Vilca (Andre)** y se comparten libremente para uso académico.
+Las adaptaciones, plantillas `.tex`, archivos `.bib`, `.bst`, READMEs y documentación derivada son **mías (Jharol Vilca / Andre)** y las comparto libremente para uso académico.
 
 ---
 

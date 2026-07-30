@@ -2,7 +2,7 @@
 
 > **Autor:** Jharol Vilca (Andre)  
 > **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
-> **Basadas en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptadas al español y para uso académico en ingeniería.
+> **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería.
 
 ---
 

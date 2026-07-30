@@ -1,8 +1,10 @@
 # Plantilla JAES — Estilo APA 7 (oficial, vía biblatex-apa)
 
-> **Autor de la adaptación:** Jharol Vilca (Andre)  
+> **Autor:** Jharol Vilca (Andre)  
 > **Repositorio:** https://github.com/s7ex-j/plantillas-latex-ieee-apa7  
 > **Basada en:** Clase `jaes.cls` original de *Journal of the Audio Engineering Society* (AES), adaptada al español y para uso académico en ingeniería. La adaptación APA 7 es **original** (no existía en Overleaf).
+
+---
 
 ## Archivos de esta carpeta
 
@@ -13,6 +15,8 @@
 | `jaes.bib` | Tu base de datos de referencias, en formato **biblatex** (no BibTeX clásico). | Sí, agrega tus referencias aquí. |
 
 Esta plantilla **no necesita ningún archivo `.bst`**. A diferencia de la plantilla IEEE (que usa `jaes.bst`) o de un enfoque con `apalike.bst`, aquí el formato de la bibliografía lo controla por completo el paquete `biblatex-apa`, instalado automáticamente por MiKTeX.
+
+---
 
 ## ✅ Esta plantilla fue verificada por compilación completa (actualizado)
 
@@ -26,12 +30,16 @@ Con este fix, la plantilla compila completa: 0 errores, 0 warnings, `biber` corr
 
 **Nota sobre `latexmk` y la detección automática de `biber`:** en algunos entornos, `latexmk` no detecta automáticamente que debe correr `biber` en la primera compilación y se queda con citas como "??" o el aviso *"Please (re)run Biber"*. Si te pasa esto en VS Code, simplemente compila una segunda vez (el botón ▶ de LaTeX Workshop) — `latexmk` sí detecta correctamente la necesidad de `biber` a partir de la segunda corrida, una vez que existe el archivo `.bcf` que `biblatex` genera en la primera pasada.
 
+---
+
 ## ¿Por qué esta plantilla es distinta a una versión con `apalike.bst`?
 
 `biblatex-apa` es la implementación **oficial y más completa** de APA 7 para LaTeX (automatiza casi todas las reglas del manual de estilo APA 7, incluyendo casos especiales como referencias legales). A diferencia de `apalike.bst` (una aproximación genérica autor-año que no es específica de APA), este paquete:
 - Usa el motor **biblatex + biber**, no BibTeX clásico. Esto cambia la sintaxis del `.bib` (ver más abajo) y el flujo de compilación.
 - Aplica automáticamente el "sentence case" de títulos que exige APA 7 (no hace falta que tú decidas qué palabras van en mayúscula).
 - Conecta autores múltiples correctamente según el idioma configurado (con `babel` cargado en español, usa "y" en vez de "and").
+
+---
 
 ## Diferencias del `.bib` en esta plantilla (formato biblatex, no BibTeX clásico)
 
@@ -47,6 +55,8 @@ Con este fix, la plantilla compila completa: 0 errores, 0 warnings, `biber` corr
 ```
 El campo `date` (año, o año-mes-día) reemplaza a los clásicos `year`/`month` separados, aunque `year` solo también funciona si prefieres mantenerlo simple.
 
+---
+
 ## Cómo citar en el texto (biblatex, NO es lo mismo que natbib)
 
 ```latex
@@ -57,6 +67,8 @@ El campo `date` (año, o año-mes-día) reemplaza a los clásicos `year`/`month`
 ```
 **Ojo:** si alguna vez copias código de internet que use `\citep`/`\citet`, esos son comandos de `natbib`, **no de biblatex**. En esta plantilla usa siempre `\textcite`/`\parencite`.
 
+---
+
 ## Cómo compilar en VS Code + LaTeX Workshop + MiKTeX
 
 1. Abre esta carpeta completa en VS Code (Archivo → Abrir carpeta).
@@ -65,6 +77,8 @@ El campo `date` (año, o año-mes-día) reemplaza a los clásicos `year`/`month`
 4. La receta por defecto de LaTeX Workshop (`latexmk`) detecta sola que el documento usa `biber` en vez de `bibtex` (lee la línea `Backend: biber` que `biblatex` deja en el `.log`). No necesitas elegir nada manualmente salvo que tengas una configuración muy personalizada — en ese caso, revisa el bloque de comentarios dentro del `.tex` con el ejemplo de receta `latexmk` para `settings.json`.
 5. Si compilas por terminal en vez del botón: un solo comando `latexmk -pdf plantilla_apa7.tex` (latexmk decide solo si necesita correr `biber`).
 
+---
+
 ## Errores típicos al editar esta plantilla
 
 - **`\email{}` y `\affil{}` deben ir DENTRO de `\authorgroup{...}`**, antes de la llave de cierre `}`. Si los sacas fuera, el formato de cursiva se "derrama" sobre todo el resto del documento.
@@ -72,6 +86,8 @@ El campo `date` (año, o año-mes-día) reemplaza a los clásicos `year`/`month`
 - El comando `\biography{...}{...}{...}` para fotos y biografías de autores **tiene un bug conocido en esta versión de `jaes.cls`**: no imprime el texto biográfico. La plantilla usa en su lugar una sección manual "Sobre el Equipo de Trabajo" al final.
 - Si tu entrega final no debe decir **"BORRADOR"** en el encabezado, edita tu copia de `jaes.cls` (ver instrucciones dentro del `.tex`, al inicio).
 - Si necesitas que el conector entre autores múltiples y otros textos fijos de la bibliografía salgan en español ("y" en vez de "and", "Recuperado de" en vez de "Retrieved from"), agrega `\usepackage[spanish]{babel}` en el preámbulo — `biblatex-apa` trae localización a varios idiomas, incluido español, pero solo se activa con `babel` cargado.
+
+---
 
 ## Si necesitas volver al enfoque con `apalike.bst`
 

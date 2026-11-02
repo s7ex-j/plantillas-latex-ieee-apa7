@@ -1,5 +1,6 @@
 # Plantillas LaTeX IEEE y APA 7 — Basadas en JAES
 
+[![Compilar plantillas](https://github.com/s7ex-j/plantillas-latex-ieee-apa7/actions/workflows/latex.yml/badge.svg)](https://github.com/s7ex-j/plantillas-latex-ieee-apa7/actions/workflows/latex.yml)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 > **Autor:** Jharol Vilca (Andre)  
@@ -37,7 +38,7 @@ plantillas-latex-ieee-apa7/
 - **Estilo de citas:** Numérico `[1]`, `[2]`... orden de aparición
 - **Motor:** BibTeX clásico (`bibtex`)
 - **Archivo de estilo:** `jaes.bst` (incluido, nativo de la plantilla)
-- **Verificada:** Compilación completa 0 errores, 0 warnings, formato dos columnas correcto
+- **Verificada:** compila sin errores con `latexmk` en cada push (GitHub Actions, TeX Live), formato dos columnas correcto. BibTeX solo avisa `empty doi` si una entrada no tiene DOI
 
 ### Plantilla APA 7 (`Plantilla APA7/`)
 - **Estilo de citas:** APA 7 oficial — `(Autor, Año)` / `Autor (Año)`, bibliografía alfabética

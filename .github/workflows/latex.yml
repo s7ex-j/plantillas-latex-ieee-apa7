@@ -1,0 +1,31 @@
+name: Compilar plantillas
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dir: Plantilla IEEE
+            root: plantilla_ieee.tex
+            pdf: plantilla_ieee.pdf
+          - dir: Plantilla APA7
+            root: plantilla_apa7.tex
+            pdf: plantilla_apa7.pdf
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compilar ${{ matrix.root }} con latexmk
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: ${{ matrix.root }}
+          working_directory: ${{ matrix.dir }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.pdf }}
+          path: ${{ matrix.dir }}/${{ matrix.pdf }}
